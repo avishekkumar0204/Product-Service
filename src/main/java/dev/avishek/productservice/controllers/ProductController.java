@@ -8,7 +8,7 @@ public class ProductController {
 
     @GetMapping
     public String getAllProducts() {
-        return "All Products Listings";
+        return "All Products Listingsa";
     }
 
     @GetMapping("/{id}")
