@@ -1,6 +1,8 @@
 package dev.avishek.productservice.controllers;
 
+import dev.avishek.productservice.dtos.ExceptionDto;
 import dev.avishek.productservice.dtos.GenricProductDto;
+import dev.avishek.productservice.exceptions.NotFoundException;
 import dev.avishek.productservice.services.ProductService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -13,12 +15,12 @@ import java.util.List;
 @RequestMapping("/products")
 public class ProductController {
     private ProductService productService;
-    public ProductController(@Qualifier("fakeStoreProductService") ProductService productService) {
+    public ProductController(ProductService productService) {
         this.productService = productService;
     }
 
     @GetMapping("/{id}")
-    public GenricProductDto getProductById(@PathVariable("id") Long id) {
+    public GenricProductDto getProductById(@PathVariable("id") Long id) throws NotFoundException {
         System.out.println("ProductController::getProductById");
         return productService.getProductById(id);
     }
@@ -47,4 +49,5 @@ public class ProductController {
         System.out.println("ProductController::updateProduct");
         return productService.updateProduct(id, product);
     }
+
 }
