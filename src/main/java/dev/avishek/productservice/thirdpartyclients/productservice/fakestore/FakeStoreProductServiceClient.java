@@ -2,6 +2,8 @@ package dev.avishek.productservice.thirdpartyclients.productservice.fakestore;
 
 import dev.avishek.productservice.dtos.GenricProductDto;
 import dev.avishek.productservice.exceptions.NotFoundException;
+import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -15,10 +17,19 @@ import java.util.List;
 @Service
 public class FakeStoreProductServiceClient{
     private RestTemplateBuilder restTemplateBuilder;
-    private String specificProductRequestUrl = "https://fakestoreapi.com/products/{id}";
-    private String productRequestBaseUrl = "https://fakestoreapi.com/products";
+
+    @Value("${fakeStore.api.url}")
+    private String fakeStoreApiUrl;
+    private String specificProductRequestUrl;
+    private String productRequestBaseUrl;
     public FakeStoreProductServiceClient(RestTemplateBuilder restTemplateBuilder) {
         this.restTemplateBuilder = restTemplateBuilder;
+    }
+
+    @PostConstruct
+    public void init() {
+        this.specificProductRequestUrl = fakeStoreApiUrl + "/products/{id}";
+        this.productRequestBaseUrl = fakeStoreApiUrl + "/products";
     }
 
     public FakeStoreProductDto getProductById(Long id ) throws NotFoundException {
