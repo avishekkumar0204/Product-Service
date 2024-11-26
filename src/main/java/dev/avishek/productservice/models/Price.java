@@ -9,5 +9,5 @@ import lombok.Setter;
 @Setter
 public class Price extends BaseModel{
     private String currency;
-    double price;
+    private double price;
 }

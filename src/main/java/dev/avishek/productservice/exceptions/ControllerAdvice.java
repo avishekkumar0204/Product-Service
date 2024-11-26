@@ -14,4 +14,11 @@ public class ControllerAdvice {
         ResponseEntity<ExceptionDto> response = new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
         return response;
     }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    private ResponseEntity<ExceptionDto> handleIllegalArgumentException(Exception ex) {
+        ExceptionDto error = new ExceptionDto(HttpStatus.BAD_REQUEST, ex.getMessage());
+        ResponseEntity<ExceptionDto> response = new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+        return response;
+    }
 }

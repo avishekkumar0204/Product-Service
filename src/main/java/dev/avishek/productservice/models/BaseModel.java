@@ -1,9 +1,6 @@
 package dev.avishek.productservice.models;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,5 +12,6 @@ import java.util.UUID;
 public class BaseModel {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "uuid", length = 36, nullable = false, unique = true)
     private UUID uuid;
 }
